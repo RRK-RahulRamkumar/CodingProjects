@@ -1,0 +1,22 @@
+# Asking the user for two numbers
+
+sequence = []
+
+for x in range(2):
+    user_input = int(input("Enter a number: "))
+    sequence.append(user_input)
+
+# Main program
+
+sequence_index_one = 0
+sequence_index_two = 1
+
+for i in range(10):
+    value_one = sequence[sequence_index_one]
+    value_two = sequence[sequence_index_two]
+    addition = value_one + value_two
+    sequence.append(addition)
+    sequence_index_one = sequence_index_one + 1
+    sequence_index_two = sequence_index_two + 1
+
+print(sequence)
