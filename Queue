@@ -1,3 +1,4 @@
+# Currently, the queue can hold four values, to change the number of values it can hold, add or remove "None" to the queue
 queue = [None, None, None, None]
 rear_pointer = -1
 
