@@ -1,0 +1,35 @@
+head_pointer = "H1"
+linked_list = [{head_pointer:["D1", "A2"]}, {"A2":["D2", "A4"]}, {"A4":["D4", None]}]
+
+# To add data to the linked list
+node_key = list(linked_list[-2].keys())[0]
+node_address = linked_list[-2].get(node_key)[1]
+
+given_data = "D3"
+given_address = "A3"
+node_format = {given_address:[given_data, node_address]}
+
+change_address = linked_list[-2].get(node_key)
+change_address[1] = given_address
+linked_list.insert(-2, node_format)
+
+# To read all the linked list
+initial_node = linked_list[0].get(head_pointer)
+initial_node_data = initial_node[0]
+current_address = initial_node[1]
+
+print(initial_node_data, current_address)
+print("________________")
+current_data = None
+index = 1
+
+for i in range(len(linked_list) - 1):
+    for node in linked_list:
+        selected_node = node.get(current_address)
+        if selected_node:
+            current_data = selected_node[0]
+            current_address = selected_node[1]
+
+            print(current_data, current_address)
+            print("__________")
+
