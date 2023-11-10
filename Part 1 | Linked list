@@ -32,4 +32,24 @@ def create_node():
         print("____________________________")
 create_node()
 
-print(linked_list)
+def read_linked():
+    global head_pointer, linked_list
+    initial_node = linked_list[0].get(head_pointer)
+    initial_node_data = initial_node[0]
+    current_address = initial_node[1]
+
+    print(f"{head_pointer} | Data: {initial_node_data} Address: {current_address}")
+    print("____________________________")
+    current_data = None
+
+    for i in range(len(linked_list) - 1):
+        for node in linked_list:
+            selected_node = node.get(current_address)
+            if selected_node:
+                current_data = selected_node[0]
+                address_before = current_address
+                current_address = selected_node[1]
+
+                print(f"{address_before} | Data: {current_data} Address: {current_address}")
+                print("____________________________")
+read_linked()
