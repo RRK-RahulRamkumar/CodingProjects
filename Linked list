@@ -79,8 +79,6 @@ def insert_linked(given_data, given_address):
     change_address[1] = given_address
     linked_list.insert(-1, node_format)
 
-insert_linked()
-
 while True:
     print("""
 (1) To read the linked list
