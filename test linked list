@@ -33,3 +33,4 @@ for i in range(len(linked_list) - 1):
             print(current_data, current_address)
             print("__________")
 
+print("hi")
