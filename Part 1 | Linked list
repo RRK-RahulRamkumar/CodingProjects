@@ -1,0 +1,35 @@
+linked_list = []
+head_pointer = None
+
+def create_node():
+    def first_node():
+        global head_pointer, linked_list
+        head_pointer = input("Address of first node: ")
+        first_data = input("Data of first node: ")
+        next_address = input("Address of next node: ")
+
+        initial_node_format = {head_pointer:[first_data, next_address]}
+
+        linked_list.append(initial_node_format)
+        print("____________________________")
+
+    first_node()
+    global head_pointer, linked_list
+    initial_node = linked_list[0].get(head_pointer)
+    current_address = initial_node[1]
+
+    number_of_nodes = int(input("How many nodes to add: "))
+    print("____________________________")
+
+    for i in range(number_of_nodes):
+        node_data = input("Data of the node: ")
+        node_address = input("Address of next node: ")
+
+        node_format = {current_address:[node_data, node_address]}
+
+        linked_list.append(node_format)
+        current_address = node_address
+        print("____________________________")
+create_node()
+
+print(linked_list)
