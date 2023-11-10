@@ -86,16 +86,19 @@ while True:
 (3) To delete a node from the linked list
 
 """)
-    user_input = int(input("Enter number: "))
+    try:
+        user_input = int(input("Enter number: "))
 
-    if user_input == 1:
-        read_linked()
-    elif user_input == 2:
-        given_data = input("Data of the node: ")
-        given_address = input("Address of the node: ")
-        insert_linked(given_data, given_address)
-    elif user_input == 3:
-        delete_address = input("Address of the node: ")
-        delete_linked(delete_address)
-    else:
-        print("Incorrect option")
+        if user_input == 1:
+            read_linked()
+        elif user_input == 2:
+            given_data = input("Data of the node: ")
+            given_address = input("Address of the node: ")
+            insert_linked(given_data, given_address)
+        elif user_input == 3:
+            delete_address = input("Address of the node: ")
+            delete_linked(delete_address)
+        else:
+            print("Incorrect option")
+    except ValueError as error:
+        pass
