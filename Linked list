@@ -69,6 +69,7 @@ def delete_linked(delete_address):
             print("Node deleted")
             
 def insert_linked(given_data, given_address):
+    global linked_list
     node_key = list(linked_list[-2].keys())[0]
     node_address = linked_list[-2].get(node_key)[1]
 
