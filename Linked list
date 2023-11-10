@@ -67,6 +67,17 @@ def delete_linked(delete_address):
             previous_node.get(previous_address)[1] = node_next_address
             print("Node deleted")
             
+def insert_linked(given_data, given_address):
+    node_key = list(linked_list[-2].keys())[0]
+    node_address = linked_list[-2].get(node_key)[1]
+
+    node_format = {given_address:[given_data, node_address]}
+    
+    change_address = linked_list[-2].get(node_key)
+    change_address[1] = given_address
+    linked_list.insert(-1, node_format)
+
+insert_linked()
 
 while True:
     print("""
@@ -80,7 +91,9 @@ while True:
     if user_input == 1:
         read_linked()
     elif user_input == 2:
-        pass
+        given_data = input("Data of the node: ")
+        given_address = input("Address of the node: ")
+        insert_linked(given_data, given_address)
     elif user_input == 3:
         delete_address = input("Address of the node: ")
         delete_linked(delete_address)
