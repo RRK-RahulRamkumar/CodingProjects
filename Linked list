@@ -54,6 +54,7 @@ def read_linked():
                 print("____________________________")
 
 def delete_linked(delete_address):
+    global linked_list
     for node in linked_list:
         node_address = list(node.keys())[0]
         node_index = linked_list.index(node)
