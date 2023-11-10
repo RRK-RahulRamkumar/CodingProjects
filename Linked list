@@ -52,4 +52,37 @@ def read_linked():
 
                 print(f"{address_before} | Data: {current_data} Address: {current_address}")
                 print("____________________________")
-read_linked()
+
+def delete_linked(delete_address):
+    for node in linked_list:
+        node_address = list(node.keys())[0]
+        node_index = linked_list.index(node)
+        node_next_address = node.get(node_address)[1]
+
+        previous_node = linked_list[node_index - 1]
+        previous_address = list(previous_node.keys())[0]
+
+        if node_address == delete_address:
+            del linked_list[node_index]
+            previous_node.get(previous_address)[1] = node_next_address
+            print("Node deleted")
+            
+
+while True:
+    print("""
+(1) To read the linked list
+(2) To insert a node into the linked list
+(3) To delete a node from the linked list
+
+""")
+    user_input = int(input("Enter number: "))
+
+    if user_input == 1:
+        read_linked()
+    elif user_input == 2:
+        pass
+    elif user_input == 3:
+        delete_address = input("Address of the node: ")
+        delete_linked(delete_address)
+    else:
+        print("Incorrect option")
