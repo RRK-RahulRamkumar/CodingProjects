@@ -1,17 +1,13 @@
-# Asking the user for two numbers
+sequence = [0, 1]
 
-sequence = []
-
-for x in range(2):
-    user_input = int(input("Enter a number: "))
-    sequence.append(user_input)
+x = int(input("Enter the number of additions: "))
 
 # Main program
 
 sequence_index_one = 0
 sequence_index_two = 1
 
-for i in range(10):
+for i in range(x):
     value_one = sequence[sequence_index_one]
     value_two = sequence[sequence_index_two]
     addition = value_one + value_two
