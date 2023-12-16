@@ -4,15 +4,10 @@ x = int(input("Enter the number of additions: "))
 
 # Main program
 
-sequence_index_one = 0
-sequence_index_two = 1
+index = 0
 
 for i in range(x):
-    value_one = sequence[sequence_index_one]
-    value_two = sequence[sequence_index_two]
-    addition = value_one + value_two
-    sequence.append(addition)
-    sequence_index_one = sequence_index_one + 1
-    sequence_index_two = sequence_index_two + 1
+    sequence.append(sequence[index] + sequence[index + 1])
+    index = index + 1
 
 print(sequence)
