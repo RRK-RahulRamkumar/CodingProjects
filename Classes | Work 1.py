@@ -32,3 +32,5 @@ permanentStaff = fullTime("Eric Jones", 72)
 permanentStaff.showDetails()
 temporaryStaff = partTime("Alice Hue", 1017)
 temporaryStaff.showDetails()
+
+# When using super() use __init__(), when using classname, use __init__(self)
