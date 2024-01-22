@@ -11,8 +11,6 @@ total = 0
 for bit in bits_list:
     if bit == 1:
         total = total + weighting_list[weighting_index]
-        weighting_index = weighting_index + 1
-    else:
-        weighting_index = weighting_index + 1
+    weighting_index = weighting_index + 1
     
 print(f"The denary value is: {total}")
