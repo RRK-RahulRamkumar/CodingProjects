@@ -37,7 +37,7 @@ while True:
     elif option == 2:
         dequeue()
     else:
-        print("Incorrect operation")
+        print("Incorrect operation.")
 
 
 
