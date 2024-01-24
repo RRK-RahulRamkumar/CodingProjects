@@ -1,32 +1,43 @@
 # Currently, the queue can hold four values, to change the number of values it can hold, add or remove "None" to the queue
 queue = [None, None, None, None]
-rear_pointer = -1
+
+front_pointer = 0
+rear_pointer = 0
 
 def enqueue(enqueue_value):
     global rear_pointer
-    if None not in queue:
-        print("Queue is full")
-    else:
-        rear_pointer = rear_pointer + 1
-        queue[rear_pointer] = enqueue_value
-    print(queue)
 
-def dequeue():
-    global rear_pointer
-    if rear_pointer < 0:
-        print("Queue is empty!")
+    if rear_pointer < len(queue):
+        queue[rear_pointer] = enqueue_value
+        rear_pointer = rear_pointer + 1
+
+        print(queue)
     else:
-        del queue[0]
-        rear_pointer = rear_pointer - 1
-        queue.append(None)
-    print(queue)
+        print("Did not enqueue.")
+    
+def dequeue():
+    global front_pointer
+
+    if front_pointer < len(queue) and queue[front_pointer] != None:
+        # Take the value stored in the position
+        value = queue[front_pointer]
+
+        queue[front_pointer] = None
+        front_pointer = front_pointer + 1
+
+        print(queue)
+    else:
+        print("Did not dequeue.")
 
 while True:
-    ask_option = int(input("Do you want to enqueue(1) or dequeue(2): "))
-    if ask_option == 1:
-        enqueue_value = int(input("Enter a value to enqueue: "))
-        enqueue(enqueue_value)
-    elif ask_option == 2:
+    option = int(input("Enqueue(1) or dequeue(2): "))
+    if option == 1:
+        value = int(input("The number: "))
+        enqueue(value)
+    elif option == 2:
         dequeue()
     else:
-        print("Incorrect input")
+        print("Incorrect operation")
+
+
+
