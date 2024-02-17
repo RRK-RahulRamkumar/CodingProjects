@@ -105,3 +105,7 @@ empty_label3 = Label(window, width=35)
 empty_label3.grid(row=13, sticky=W)
 
 window.mainloop()
+
+# Used ChatGPT for wrap behavior
+# Note to self
+# (letter_index + key) % 26 is used for wrap behavior
