@@ -107,5 +107,9 @@ empty_label3.grid(row=13, sticky=W)
 window.mainloop()
 
 # Used ChatGPT for wrap behavior
-# Note to self
+
+# Notes to self
 # (letter_index + key) % 26 is used for wrap behavior
+# You can use bracket notation on a string to access specific characters
+
+# Code is not perfect but it works (to an extent)
