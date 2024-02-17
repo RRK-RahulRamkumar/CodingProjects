@@ -64,6 +64,8 @@ def decrypt():
 window = Tk()
 
 window.title("Caesar Cipher Algorithm")
+window.geometry("300x300")
+window.resizable(False, False)
 
 text_label1 = Label(window, text="______________Key______________")
 text_label1.grid(row=1, sticky=W)
