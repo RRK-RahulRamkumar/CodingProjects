@@ -5,7 +5,7 @@ from socket import *
 from tkinter import Tk, Label
 from threading import Thread
 
-server_ip = '127.0.0.1'
+server_ip = '127.0.0.1' # This IP address (loopback address) refers to the localhost (the machine itself)
 server_port = 1234
 queue_limit = 1
 buffer_size = 1024
