@@ -7,51 +7,78 @@ from socket import *
 from tkinter import Tk, Label, Entry, Button
 from threading import Thread
 
+# The server will automatically close after receiving a connection from the client
+
+server_active = False
+
 def connection(server_ip, server_port, queue_limit, buffer_size, data_to_share):
+    global server_active
+
+    start_server_button.config(state="disabled")
     log_texts = ""
 
     # Creating a socket using the with statement
-    with socket(AF_INET, SOCK_STREAM) as server_socket:
-        
-        # Assigns the socket to an ip address and a port
-        server_socket.bind((server_ip, server_port))
+    while server_active:
+        with socket(AF_INET, SOCK_STREAM) as server_socket:
+            try:
+                # Assigns the socket to an ip address and a port
+                server_socket.bind((server_ip, server_port))
 
-        # Enables the socket to receive connections upto the queue limit
-        server_socket.listen(queue_limit)
+                # Enables the socket to receive connections upto the queue limit
+                server_socket.listen(queue_limit)
 
-        # Accept the received connection, which returns a tuple with client socket and client address
-        client_socket, client_address = server_socket.accept()
-        log_texts += f"Connection established with {client_address}.\n"
+                # Accept the received connection, which returns a tuple with client socket and client address
+                client_socket, client_address = server_socket.accept()
+                log_texts += f"Connection established with {client_address}.\n"
+                log.config(text=log_texts)
 
-        # To receive data from the client socket, decoding it using .decode()
-        received_data = client_socket.recv(buffer_size).decode()
-        received_data_label.config(text=f"{received_data}")
+                # To receive data from the client socket, decoding it using .decode()
+                received_data = client_socket.recv(buffer_size).decode()
+                received_data_label.config(text=f"{received_data}")
 
-        log_texts += f"Client shared the data.\n"
+                log_texts += f"Client shared the data.\n"
+                log.config(text=log_texts)
 
-        # To send data to the client
-        client_socket.sendall(bytes(data_to_share, 'utf-8'))
-        log_texts += "Shared data with client.\n"
+                # To send data to the client
+                client_socket.sendall(bytes(data_to_share, 'utf-8'))
+                log_texts += "Shared data with client.\n"
+                log.config(text=log_texts)
 
-        # To end the connection between the server and the client socket
-        client_socket.close()
-        log_texts += f"Connection with {client_address} closed."
+                # To end the connection between the server and the client socket
+                client_socket.close()
+                log_texts += f"Connection with {client_address} closed.\n"
 
-    
-    log.config(text=log_texts)
+                log_texts += f"Closing server.\n"
+                log.config(text=log_texts)
+
+                server_active = False
+                received_data_label.after(5000, lambda: received_data_label.config(text="Server inactive."))
+                log.after(10000, lambda: log.config(text="Server inactive."))
+                break
+
+            except OSError as error:
+                print(f"{error} occured, terminating server.")
+                break
+            finally:
+                start_server_button.config(state="active")
 
 def start_server():
+    global server_active
 
-    server_ip = ip_entry.get()
-    server_port = int(port_entry.get())
-    queue_limit = int(Q_limit_entry.get())
-    buffer_size = int(buffer_entry.get())
-    data_to_share = data_entry.get()
+    try:
+        server_ip = ip_entry.get()
+        server_port = int(port_entry.get())
+        queue_limit = int(Q_limit_entry.get())
+        buffer_size = int(buffer_entry.get())
+        data_to_share = data_entry.get()
 
-    received_data_label.config(text="No data received.")
-    log.config(text="No data to log.")
-
-    Thread(target=connection, args=(server_ip, server_port, queue_limit, buffer_size, data_to_share)).start()
+        received_data_label.config(text="No data received.")
+        log.config(text="No data to log.")
+        
+        server_active = True
+        Thread(target=connection, args=(server_ip, server_port, queue_limit, buffer_size, data_to_share)).start()
+    except ValueError as error:
+        print(f"{error} occured, server startup request failed.")
 
 window = Tk()
 window.title("Server configuration")
@@ -98,7 +125,6 @@ empty_label2.grid(row=8, column=0)
 start_server_button = Button(window, text="Start Server", command=start_server)
 start_server_button.grid(row=9, columnspan=1)
 
-
 window.mainloop()
 
 # Used ChatGPT for debugging and threading
@@ -111,9 +137,9 @@ window.mainloop()
 
 # Notes to self,
 # Threading allows for the execution of multiple tasks concurrently within a single process (an instance of a program)
-# For threading, targert=function name, args=(arguments for the function). args paremeter only applies if there are arguments for the function
+# For threading, target=function name, args=(arguments for the function). args paremeter only applies if there are arguments for the function
 
-# b"" is used to convert characters within the qoutation into bytes, you can use "".encode() or bytes("", "type of encoding, generally utf-8")
+# b"" is used to convert characters within the quotation into bytes, you can use "".encode() or bytes("", "type of encoding, generally utf-8")
 
 # send(data) Sends the specified data over the socket. It will attempt to send as much data as possible in a single call, up to the buffer size. 
 #   If the buffer is full and not all data is sent, 
@@ -128,6 +154,7 @@ window.mainloop()
 # Functions can always access global variables but cannot modify them unless the global keyword is used
 
 # AF_INET refers to IPV4, SOCK_STREAM refers to TCP
+
 
 # --------------------------------
 # ------- Client side code -------
@@ -145,19 +172,21 @@ def connection(server_ip, server_port, buffer_size, data_to_share):
         # Connecting the server socket
         client_socket.connect((server_ip, server_port))
         log_texts += f"Connection established with {server_ip}.\n"
+        log.config(text=log_texts)
 
         # Sending data to the server using the client socket
         client_socket.sendall(bytes(data_to_share, "utf-8"))
         log_texts += f"Data shared with server.\n"
+        log.config(text=log_texts)
 
         # Receving data from the server using the client socket
         received_data = client_socket.recv(buffer_size).decode()
         log_texts += f"Data received from server.\n"
+        log.config(text=log_texts)
         received_data_label.config(text=f"{received_data}")
 
         log_texts += f"Connection with {server_ip} closed.\n"
-
-    log.config(text=log_texts)
+        log.config(text=log_texts)
 
 def connect_client():
 
