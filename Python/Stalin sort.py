@@ -1,17 +1,17 @@
-list = [2, 4, 1, 5, 3, 6]
+def StalinSort(numbers_list):
 
-def StalinSort(list):
-    current_number = 0
+    if numbers_list:
+        current_number = 0
 
-    for number in list:
-        if number > current_number:
-            current_number = number
-        else:
-            list.remove(number)
-    
-    return list
+        for number in numbers_list:
+            if number > current_number:
+                current_number = number
+            else:
+                numbers_list.remove(number)
+        
+        return f"Sorted list: {numbers_list}"
+    else:
+        return "List is empty"
 
-print(f"""
-Unsorted list: {list}
-Sorted list: {StalinSort(list)}
-""")
+numbers_list = []
+print(StalinSort(numbers_list))
