@@ -21,7 +21,8 @@ def main_func(func_code):
         status_label.config(text="Finished playing recording!")
 
 window = Tk()
-window.title("Mouse movement recorder")
+window.title("Mouse Recorder")
+window.resizable(False, False)
 
 frame_one = Frame(window)
 
