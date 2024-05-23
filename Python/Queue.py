@@ -2,23 +2,25 @@
 queue = [None, None, None, None]
 front_pointer = -1
 rear_pointer = -1
-error_message = "Unable to carryout the action."
 def enqueue(enqueue_value):
     global rear_pointer
-    rear_pointer = rear_pointer + 1
-    if rear_pointer <= len(queue) - 1:
+    
+    if rear_pointer < len(queue) - 1:
+        rear_pointer = rear_pointer + 1
         queue[rear_pointer] = enqueue_value
         print(queue)
     else:
-        print(error_message)
+        print("Queue is full.")
+
 def dequeue():
     global front_pointer
-    front_pointer = front_pointer + 1
-    if front_pointer <= len(queue) - 1:
+    
+    if front_pointer < len(queue) - 1:
+        front_pointer = front_pointer + 1
         queue[front_pointer] = None
         print(queue)
     else:
-        print(error_message)
+        print("Queue is empty")
 
 # Extra code
 while True:
